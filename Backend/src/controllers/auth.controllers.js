@@ -1,4 +1,4 @@
-import 'dotenv/config'
+//import 'dotenv/config'
 import User from "../models/user.model.js";
 import {createAccessToken } from "../libs/jwt.js";
 import bcrypt from 'bcryptjs';

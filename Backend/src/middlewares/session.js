@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import 'dotenv/config'
+//import 'dotenv/config'
 export const validateToken = (req,res,next)=>{
     const {token} = req.cookies;
     if(!token) return res.status(401).json({message:"Sin token"});
