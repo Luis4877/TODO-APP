@@ -31,7 +31,7 @@ function Navbar() {
             <li>
               <Link to="/login" 
               className="bg-indigo-500 px-4 py-1 rounded-md"
-              >Login</Link>
+              >Ingrear</Link>
             </li>
             <li>
               <Link to="/register"  className="bg-indigo-500 px-4 py-1 rounded-md">Register</Link>

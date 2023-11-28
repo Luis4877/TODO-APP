@@ -85,7 +85,7 @@ export const verifyToken = async(req,res)=>{
   const {token}  = req.cookies;
   if(!token) return res.status(401).json({message:"No autorizado "});
 
-    jwt.verify(token,PeluzaPetra020907,async(err,user)=>{
+    jwt.verify(token,process.env.VITE_JWT_SECRET_KEY,async(err,user)=>{
       if(err) return res.status(401).json({message:"No autorizado "});
       
     const userFound =   await User.findById (user.id);

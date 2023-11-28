@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../contex/auth.Contex.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import Grid from '@mui/material/Grid';
+import { makeStyles } from "@mui/material";
 export function Login() {
   const {
     register,
@@ -29,31 +31,31 @@ export function Login() {
                 </div>
               ))  
             }
-     <h1 className="text-2xl font-bold">LOGIN</h1>
+     <h1 className="text-2xl font-bold">Entrar</h1>
      <form onSubmit={onSubmit}>
         <input
           type="email"
           name="email"
           {...register("email", { required: true })}
           className="w-full bg-zinc-700  text-white px-4 py-2 rounded-md my-2"
-          placeholder="EMAIL"
+          placeholder="Correo"
         />
-        {errors.email && <p className="text-red-500">Email es requerido</p>}
+        {errors.email && <p className="text-red-500">Correo es requerido</p>}
 
         <input
           type="password"
           name="password"
           {...register("password", { required: true })}
           className="w-full bg-zinc-700  text-white px-4 py-2 rounded-md my-2"
-          placeholder="PASSWORD"
+          placeholder="Contraseña"
         />
         {errors.password && (
-          <p className="text-red-500">Password es requerido</p>
+          <p className="text-red-500">Contraseña es requerido</p>
         )}
-        <button type="submit">Login</button>
+        <button type="submit" className="" >INGRESAR</button>
       </form>
       <p className="flex gap-x-2 justify-between">
-        No tienes una cuenta aun <Link to="/register" className="text-sky-500">Sign Up</Link>
+        ¿No tienes una cuenta aun? <Link to="/register" className="text-sky-500">Sign Up</Link>
       </p>
      </div>
     </div>
