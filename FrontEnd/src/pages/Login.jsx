@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../contex/auth.Contex.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import Grid from '@mui/material/Grid';
-import { makeStyles } from "@mui/material";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 export function Login() {
   const {
     register,
@@ -52,10 +53,12 @@ export function Login() {
         {errors.password && (
           <p className="text-red-500">Contraseña es requerido</p>
         )}
-        <button type="submit" className="" >INGRESAR</button>
+        <Button variant="contained" disableElevation type="submit">INGRESAR</Button>
       </form>
       <p className="flex gap-x-2 justify-between">
-        ¿No tienes una cuenta aun? <Link to="/register" className="text-sky-500">Sign Up</Link>
+        ¿No tienes una cuenta aun?
+       
+         <Link to="/register" className="text-sky-500">Sign Up</Link>
       </p>
      </div>
     </div>
