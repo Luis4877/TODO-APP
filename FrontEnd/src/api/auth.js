@@ -1,7 +1,7 @@
 import axios from './axios.js';
 
 export const registerRequest = async (user) =>{
-    const res=await fetch(`${import.meta.env.VITE_URL_BACKEND}/register` ,{
+    const res=await fetch("import.meta.env.VITE_URL_BACKEND/register" ,{
       method:POST,
       mode:"cors",
       headers: {
