@@ -6,7 +6,7 @@ export const registerRequest = async (user) =>{
       mode:"cors",
       headers: {
         'Content-Type': 'application/json',
-         'Content-Type': 'application/x-www-form-urlencoded',
+      //   'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(user)
 
