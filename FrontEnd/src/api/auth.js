@@ -15,9 +15,7 @@ export const registerRequest = async (user) =>{
 
 }  
 
-export const loginRequest =  async (user) => {
-  const res = await  axios.post(`/login`,user);
-    console.log(res)
-}
+export const loginRequest =  async (user) => await  axios.post(`/login`,user)
+
 
 export const verifyToken = ()=>axios.get('/verify-token')
