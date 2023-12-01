@@ -13,7 +13,7 @@ function Navbar() {
         {isAuthenticated ? (
           <>
             <li>
-              Bienvenido: {user.username}
+             Bienvenido: {}
             </li>
             
             <li>

@@ -25,13 +25,15 @@ export const register = async (req, res) => {
       id: userSaved._id,
     });
 
-   res.cookie("token",token);
-   
+    res.writeHead(201,{
+      "Authorization":`Bearer ${token}`,  
+    })
+    
+    res.end()
+   /*
     res.json({
-      id:userSaved._id,
-      username:userSaved.username,
-      email:userSaved.email,
-    });
+    ,
+    });*/
   } catch (error) {
     res.status(500).json({message:error.message});
   }
@@ -52,13 +54,11 @@ export const login = async (req, res) => {
       id: userFound._id,
     });
 
-   res.cookie("token",token);
+    res.writeHead(201,{
+      "Authorization":`Bearer ${token}`
+    })
    
-    res.json({
-      id:userFound._id,
-      username:userFound.username,
-      email:userFound.email,
-    });
+   res.end();
     console.log(res.json);
   } catch (error) {
     res.status(500).json({message:error.message});
@@ -66,9 +66,10 @@ export const login = async (req, res) => {
 };
 
 export const logout   = (req,res)=>{
-  res.cookie('token',"",{
+ // const authHeader = req.headers["authorization"];
+ /* res.cookie('token',"",{
     expires: new Date(0)
-  });
+  });*/
   return res.sendStatus(200);
 }
 
@@ -83,7 +84,9 @@ export const profile = async (req,res)=>{
 }
 
 export const verifyToken = async(req,res)=>{
-  const {token}  = req.cookies;
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  console.log(`TOKEN VERIFICADO:${token}`)
   if(!token) return res.status(401).json({message:"No autorizado "});
 
     jwt.verify(token,process.env.VITE_JWT_SECRET_KEY,async(err,user)=>{

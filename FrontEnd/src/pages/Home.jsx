@@ -4,7 +4,7 @@ function Home(){
     
     return(
         <div>
-            <h>{import.meta.env.VITE_HOME}</h>
+            <h1>{import.meta.env.VITE_HOME}</h1>
         </div>
     )
 }
