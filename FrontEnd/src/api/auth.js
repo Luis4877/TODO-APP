@@ -1,11 +1,12 @@
 import axios from './axios.js';
 
 export const registerRequest = async (user) =>{
-    const res=await fetch("http://localhost:3000",{
+    const res=await fetch(import.meta.env.VITE_URL_BACKEND,{
       method:POST,
+      mode:"cors",
       headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
+         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(user)
 
