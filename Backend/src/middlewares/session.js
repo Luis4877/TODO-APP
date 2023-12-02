@@ -9,7 +9,7 @@ export const validateToken = (req,res,next)=>{
             if(error) return res.status(401).json({message:"TOKEN INVALIDO"});
            
             //validando que si este un usuario
-
+        console.log(decoded)
             req.user = decoded;
             next();
     })

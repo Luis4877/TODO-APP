@@ -4,6 +4,7 @@ export const getTasks = async (req,res)=>{
         const tasks = await Task.find({
             user: req.user.id
         });
+        
         res.json(tasks);
     } catch (error) {
         return res.status(500).json({message:"Algo fue mal..."});

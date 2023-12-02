@@ -55,7 +55,7 @@ export function Login() {
         )}
         <Button variant="contained" disableElevation type="submit">INGRESAR</Button>
       </form>
-      <p className="flex gap-x-2 justify-between">
+      <p className="flex gap-x-2 justify-between text-sky-600">
         ¿No tienes una cuenta aun?
        
          <Link to="/register" className="text-sky-500">Sign Up</Link>

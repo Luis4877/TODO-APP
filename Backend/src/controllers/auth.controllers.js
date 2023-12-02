@@ -24,12 +24,23 @@ export const register = async (req, res) => {
     const token = await createAccessToken({
       id: userSaved._id,
     });
-
+/*
     res.writeHead(201,{
-      "Authorization":`Bearer ${token}`,  
+      "Authorization":`Bearer ${token}`, 
+      "id":userSaved._id,
+      "username":userSaved.username,
+      "email":userSaved.email 
     })
+  */
+   
+    res.body({
+      id:userSaved._id,
+      username:userSaved.username,
+      email:userSaved.email,
+      token:token
+    }).end();
     
-    res.end()
+  
    /*
     res.json({
     ,
@@ -54,12 +65,27 @@ export const login = async (req, res) => {
       id: userFound._id,
     });
 
+    /*
+
     res.writeHead(201,{
-      "Authorization":`Bearer ${token}`
+      "Authorization":`Bearer ${token}`,
+      "id":userFound._id,
+      "username":userFound.username,
+      "email":userFound.email 
+    })*/
+
+    res.status(200).json({
+     
+      id:userFound._id,
+      username:userFound.username,
+      Authorization:token,
+      email:userFound.email 
     })
+    
+
    
    res.end();
-    console.log(res.json);
+
   } catch (error) {
     res.status(500).json({message:error.message});
   }
@@ -78,15 +104,15 @@ export const profile = async (req,res)=>{
     if(!userFound) return res.status(400).json({message:"Credenciales invalidas"});
   return  res.json({
     id:userFound._id,
-    username:userFound._username,
-    email:userFound._email
+    username:userFound.username,
+    email:userFound.email
   })
 }
 
 export const verifyToken = async(req,res)=>{
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  console.log(`TOKEN VERIFICADO:${token}`)
+ // console.log(`TOKEN VERIFICADO:${token}`)
   if(!token) return res.status(401).json({message:"No autorizado "});
 
     jwt.verify(token,process.env.VITE_JWT_SECRET_KEY,async(err,user)=>{
@@ -96,6 +122,7 @@ export const verifyToken = async(req,res)=>{
     if(!userFound) return res.status(401).json({message:"No autorizado "});
       
     return res.json({
+      token:token,
       id:userFound._id,
       username:userFound.username,
       email:userFound.email,

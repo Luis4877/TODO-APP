@@ -7,7 +7,7 @@ function Card({task}){
         <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
         <header className="flex justify-between">
         <h1 className="text-2xl font-bold">{task.title}</h1> 
-        <div className="flex gap-x-2 items-center"  >
+        <div className="flex gap-x-2 items-center bg-white space-x-2 "  >
             <button onClick={()=>{
                deleteTask(task._id)
             }}>Borrar</button>

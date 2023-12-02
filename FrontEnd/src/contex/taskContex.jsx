@@ -23,7 +23,7 @@ export function TaskProvider({ children }) {
     try {
       const res = await getTasksRequest();
       setTasks(res.data);
-      console.log(res.data);
+      
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +31,7 @@ export function TaskProvider({ children }) {
   const createTask = async (task) => {
     try {
       const res = await createTasksRequest(task);
-      console.log(res.data);
+  
     } catch (error) {
       console.log(error);
     }

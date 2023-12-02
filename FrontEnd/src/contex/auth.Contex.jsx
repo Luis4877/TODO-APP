@@ -16,16 +16,21 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrrors] = useState([]);
-  const [loading, setLoading] = useState(true);
+  //implementacion de estado con token
+  let [authToken, setAuthToken] = useState(()=> localStorage.getItem('authToken') ? JSON.parse(localStorage.getItem('authToken')) : null)
 
+  const [loading, setLoading] = useState(true);
+  
 
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
-      console.log(res);
-     /* setUser(res.data);
+     const token = res.data.Authorization;
+      window.localStorage.setItem("token",token)
+     
+      setUser(res.data);
       setIsAuthenticated(true);
-    */
+    
     } catch (error) {
       setErrrors(error.response);
     }
@@ -34,13 +39,14 @@ export const AuthProvider = ({ children }) => {
   const signin = async (user) => {
     try {
       const res = await loginRequest(user);
-   
+     
       setIsAuthenticated(true);
       setUser(res.data);
-      console.log(res.data)
+      const token = res.data.Authorization;
+      window.localStorage.setItem("token",token)
     } catch (error) {
-      if (Array.isArray(error.response.data)) {
-        return setErrrors(error.response.data);
+      if (Array.isArray(error.res.data)) {
+        return setErrrors(error.res.data);
       }
       setErrrors([error.response.data.message]);
     }
@@ -55,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   }, [errors]);
   
 const logout= ()=>{
-  Cookies.remove('token')
+ window.localStorage.removeItem("token")
   setIsAuthenticated(false);
   setUser(null);
    
@@ -64,8 +70,8 @@ const logout= ()=>{
 
   useEffect(() => {
     async function checkCredencials() {
-      const cookies = Cookies.get();
-      if (!cookies.token) {
+      const token =   window.localStorage.getItem("token")
+      if (!token) {
         setIsAuthenticated(false);
 
         setLoading(false);
@@ -74,7 +80,7 @@ const logout= ()=>{
 
       
         try {
-          const res = await verifyToken(cookies.token);
+          const res = await verifyToken(token);
          
           
           if (!res.data) return setIsAuthenticated(false);
