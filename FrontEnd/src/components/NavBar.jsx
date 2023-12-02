@@ -1,4 +1,4 @@
-import Link from '@mui/material/Link';
+import { Link } from "react-router-dom"; 
 import { useAuth } from "../contex/auth.Contex";
  
 function Navbar() {
@@ -6,7 +6,7 @@ function Navbar() {
   console.log(`Autenticado:${isAuthenticated}`)
   return (
     <nav className="bg-indigo-400  my-3 flex justify-between py-5 px-10 rounded-lg">
-      <Link href={"/"}  underline='none'>
+      <Link to="/"  >
         <h1 className=" text-2xl font-bold">Todo APP</h1>
       </Link>
       <ul className="flex gap-x-3">
@@ -17,12 +17,12 @@ function Navbar() {
             </li>
             
             <li>
-              <Link  underline='none' href={"/add-task"}>
+              <Link  to="/add-task">
                 Tarea nueva
                 </Link>
             </li>
             <li>
-              <Link underline='none' href={"/"} onClick={()=>{
+              <Link  to="/" onClick={()=>{
                 logout();
               }}>Salir</Link>
             </li>
@@ -31,12 +31,12 @@ function Navbar() {
         ) : (
           <>
             <li>
-              <Link underline='none'  href={"/login"} 
+              <Link to="/login" 
               className="bg-white px-4 py-1 rounded-md"
               >Ingrear</Link>
             </li>
             <li>
-              <Link underline='none' href={"/register"}  className="bg-white px-4 py-1 rounded-md">Register</Link>
+              <Link to="/register"  className="bg-white px-4 py-1 rounded-md">Register</Link>
             </li>
           </>
         )}
