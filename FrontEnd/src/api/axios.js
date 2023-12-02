@@ -10,8 +10,10 @@ const instanceAxios =  axios.create({
 
 instanceAxios.interceptors.request.use(async req=>{
    const updateHeaders = {
-    Authorization:`Bearer ${localStorage.getItem("token") || null }`
+    Authorization:`Bearer ${localStorage.getItem("token") || null }`,
+    'Content-Type': 'application/json'
    }
+   req.mode='cors';
     req.headers = updateHeaders;
     return req;
 })
