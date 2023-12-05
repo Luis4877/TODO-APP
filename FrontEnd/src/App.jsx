@@ -7,9 +7,9 @@ import TaskForm from "./pages/TaskForm.jsx";
 import Profile from "./pages/Profile.jsx";
 import Home from "./pages/Home.jsx";
 
-
 import { TaskProvider } from "./contex/taskContex.jsx";
-import Navbar from "./components/NavBar.jsx";
+import ResponsiveAppBar from "./components/AppBar.jsx";
+
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
 function App() {
   return (
@@ -17,20 +17,19 @@ function App() {
       <TaskProvider>
         <BrowserRouter>
           <main className="container mx-auto px-10">
-            
-         <Navbar/>
+            <ResponsiveAppBar />
             <Routes>
               //rutas publicas
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-            
               //rutas privadas
               <Route element={<ProtectedRoutes />}>
                 <Route path="/tasks" element={<TaskPage />} />
                 <Route path="/add-task" element={<TaskForm />} />
                 <Route path="/tasks/:id" element={<TaskForm />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/logout" element={<Home />}></Route>
               </Route>
             </Routes>
           </main>

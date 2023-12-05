@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { registerRequest, loginRequest, verifyToken } from "../api/auth";
-import Cookies from "js-cookie";
+
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -11,26 +11,22 @@ export const useAuth = () => {
   return context;
 };
 
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrrors] = useState([]);
   //implementacion de estado con token
 
-
   const [loading, setLoading] = useState(true);
-  
 
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
-     const token = res.data.Authorization;
-      window.localStorage.setItem("token",token)
-     
+      const token = res.data.Authorization;
+      window.localStorage.setItem("token", token);
+
       setUser(res.data);
       setIsAuthenticated(true);
-    
     } catch (error) {
       setErrrors(error.response);
     }
@@ -39,11 +35,11 @@ export const AuthProvider = ({ children }) => {
   const signin = async (user) => {
     try {
       const res = await loginRequest(user);
-     
+
       setIsAuthenticated(true);
       setUser(res.data);
       const token = res.data.Authorization;
-      window.localStorage.setItem("token",token)
+      window.localStorage.setItem("token", token);
     } catch (error) {
       if (Array.isArray(error.res.data)) {
         return setErrrors(error.res.data);
@@ -59,18 +55,16 @@ export const AuthProvider = ({ children }) => {
       return () => clearTimeout(timer);
     }
   }, [errors]);
-  
-const logout= ()=>{
- window.localStorage.removeItem("token")
-  setIsAuthenticated(false);
-  setUser(null);
-   
-}
 
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    setUser(null);
+  };
 
   useEffect(() => {
     async function checkCredencials() {
-      const token =   window.localStorage.getItem("token")
+      const token = window.localStorage.getItem("token");
       if (!token) {
         setIsAuthenticated(false);
 
@@ -78,23 +72,19 @@ const logout= ()=>{
         return;
       }
 
-      
-        try {
-          const res = await verifyToken(token);
-         
-          
-          if (!res.data) return setIsAuthenticated(false);
-          
-          
-          setIsAuthenticated(true);
-          setUser(res.data);
-          setLoading(false);
-        } catch (error) {
-          console.log(error);
-          setIsAuthenticated(false);
-      
-          setLoading(false);
-        
+      try {
+        const res = await verifyToken(token);
+
+        if (!res.data) return setIsAuthenticated(false);
+
+        setIsAuthenticated(true);
+        setUser(res.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsAuthenticated(false);
+
+        setLoading(false);
       }
     }
     checkCredencials();
